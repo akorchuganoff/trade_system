@@ -10,6 +10,7 @@
         <nav class="navbar navbar-dark bg-dark" style="height: 100px">
             <div class="container-fluid">
                 <a class="navbar-brand p-0 me-2"  style="color:white" href="/system">На главную страницу</a>
+                <h4 style="color: white;">{{current_user.money}}$</h4>
                 {% if current_user.is_authenticated %}
                     <a class="navbar-brand" style="color:white" href="/account">{{ current_user.surname }} {{ current_user.name }}</a>
                 {% else %}
