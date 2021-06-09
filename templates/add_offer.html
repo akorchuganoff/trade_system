@@ -2,29 +2,39 @@
 
 {%block content%}
 <div class="container">
-    <form class="d-flex" style="margin-top: 30px;">
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Выберите тип сортировки</option>
-            <option value="1">По цене</option>
-            <option value="2">По расстоянию</option>
-        </select>
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    <form action="">
+        <p>
+        {{ form.image.label }}<br>
+        {{ form.image(class="form-control", type="file") }}<br>
+        {% for error in form.image.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+        <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control", type="string") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+
+        <p>
+        {{ form.description.label }}<br>
+        {{ form.description(class="form-control", type="textarea") }}<br>
+        {% for error in form.description.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+
+        <p >{{ form.submit(type="submit", class="btn btn-outline-secondary") }}</p>
+
+
     </form>
-    <section class="">
-        <div class="row align-items-center"  style="margin-top: 50px;">
-            <div class="col">
-                <img src="https://www.thegrandattrafalgarsquare.com/wp-content/uploads/sites/8/2018/01/AREA_CQ_TRAFALGAR_0958resized-1024x1024.jpg?ch=Width,DPR"
-                     alt="" style="width: 100%; border-radius: 100%;">
-            </div>
-            <div class="col" style="text-align: center">
-                <h3>Title</h3>
-                <h4>Description</h4>
-            </div>
-            <div class="col" style="text-align: center">
-                <a href="#" class="btn_to_card">Price</a>
-            </div>
-        </div>
-    </section>
 </div>
 {%endblock%}

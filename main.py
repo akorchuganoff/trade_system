@@ -1,6 +1,7 @@
 from data import db_session
 from data.offer import Offer
 from data.user import User
+from forms.add_offer_form import AddOfferForm
 from forms.registration import RegisterForm, LoginForm
 from flask import Flask, render_template, redirect, request, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -72,11 +73,15 @@ def login():
     form = LoginForm()
     return render_template("login.html", form=form)
 
+@app.route('/add_offer')
+def add_offer():
+    form=AddOfferForm()
+    return render_template("add_offer.html", form=form)
 
 def main():
+    # db_sess = db_session.create_session()
+    # db_sess.commit()
     db_session.global_init("db/trade_system.db")
-    db_sess = db_session.create_session()
-    db_sess.commit()
     app.run(host='127.0.0.1', port=8000, debug=True)
 
 
