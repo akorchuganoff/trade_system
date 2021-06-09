@@ -1,14 +1,37 @@
-from flask import Flask, jsonify
+from data import db_session
+from data.offer import Offer
+from data.user import User
+from flask import Flask, render_template, redirect, request, jsonify
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_restful import Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-class Test(Resource):
-    def get(self):
-        return jsonify({'test': 'dkljkjn;sgv;ms'})
 
-api.add_resource(Test, '/')
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route("/")
+def system():
+    return render_template("system.html")
+
+
+@app.route("/account")
+def account():
+    return render_template("account.html")
 
 
 if __name__ == '__main__':
