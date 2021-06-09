@@ -32,7 +32,10 @@ def logout():
 @app.route("/", methods=['GET', 'POST'])
 def system():
     if request.method == 'GET':
-        return render_template("system.html")
+        db_sess = db_session.create_session()
+        offers = db_sess.query(Offer).all()[:5]
+        print(offers[0].name)
+        return render_template("system.html", n=max(0, len(offers)), offers=offers)
     elif request.method == 'POST':
         pass
 
@@ -71,6 +74,15 @@ def registration():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильно указана почта или пароль",
+                               form=form)
     return render_template("login.html", form=form)
 
 @app.route('/add_offer')
