@@ -10,7 +10,6 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'DK_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -41,6 +40,7 @@ def system():
 
 
 @app.route("/account")
+@login_required
 def account():
     return render_template("account.html")
 
@@ -86,6 +86,7 @@ def login():
 
 
 @app.route('/add_offer', methods=['GET', 'POST'])
+@login_required
 def add_offer():
     form = AddOfferForm()
     if form.validate_on_submit():
@@ -108,13 +109,20 @@ def add_offer():
 
     return render_template("add_offer.html", form=form)
 
-@app.route('/a1234/<int:id>', methods=['GET', 'POST'])
-def a1234(id):
+@app.route('/buy_offer/<int:id>', methods=['GET', 'POST'])
+@login_required
+def buy_offer(id):
     db_sess = db_session.create_session()
     offer = db_sess.query(Offer).filter(Offer.id == id).first()
     if request.method == 'POST':
-
-        return redirect('/')
+        if not current_user.money >= offer.price:
+            return render_template('offer_card.html', offer=offer)
+        current_user.money -= offer.price
+        user = db_sess.query(User).filter(User.id == offer.user_id).first()
+        user.money += offer.price
+        db_sess.delete(offer)
+        db_sess.commit()
+        return redirect('/system')
 
     return render_template('offer_card.html', offer=offer)
 
