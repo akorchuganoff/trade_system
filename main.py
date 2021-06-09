@@ -31,7 +31,10 @@ def logout():
 @app.route("/", methods=['GET', 'POST'])
 def system():
     if request.method == 'GET':
-        return render_template("system.html")
+        db_sess = db_session.create_session()
+        offers = db_sess.query(Offer).all()[:5]
+        print(offers[0].name)
+        return render_template("system.html", n=max(0, len(offers)), offers=offers)
     elif request.method == 'POST':
         pass
 
