@@ -87,17 +87,30 @@ def login():
 
 @app.route('/add_offer', methods=['GET', 'POST'])
 def add_offer():
-    print(request.method)
     form = AddOfferForm()
     if form.validate_on_submit():
-        print(1243142)
+        db_sess = db_session.create_session()
+        f = form.image.data
+        if db_sess.query(Offer).first():
+            n = db_sess.query(Offer).all()[-1].id
+        else:
+            n = 0
+        f.save(f"static/img/{str(n + 1)}.png")
+        offer = Offer(
+            name=form.name.data,
+            description=form.description.data,
+            price=form.price.data,
+            image=f"static/img/{str(n + 1)}.png"
+        )
+        db_sess.add(offer)
+        db_sess.commit()
         return redirect('/account')
-
     return render_template("add_offer.html", form=form)
 
+
 def main():
-    # db_sess = db_session.create_session()
-    # db_sess.commit()
+    #db_sess = db_session.create_session()
+    #db_sess.commit()
     db_session.global_init("db/trade_system.db")
     app.run(host='127.0.0.1', port=8000, debug=True)
 
