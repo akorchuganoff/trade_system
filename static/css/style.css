@@ -55,3 +55,33 @@
   text-align: center;
   width: 40%;
 }
+
+
+
+.inner{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-2{
+  width: 60%;
+
+}
+
+.left-2 > h2{
+font-size: 40pt;
+}
+
+.left-2 > img{
+  width: 100%;
+}
+.right-2{
+  width: 40%;
+  text-align: center;
+  align-self: center;
+}
+.right-2 > a{
+  font-size: 50pt;
+  text-decoration: none;
+}

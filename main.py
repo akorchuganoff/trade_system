@@ -95,6 +95,17 @@ def add_offer():
 
     return render_template("add_offer.html", form=form)
 
+@app.route('/a1234/<int:id>', methods=['GET', 'POST'])
+def a1234(id):
+    db_sess = db_session.create_session()
+    offer = db_sess.query(Offer).filter(Offer.id == id).first()
+    if request.method == 'POST':
+
+        return redirect('/')
+
+    return render_template('offer_card.html', offer=offer)
+
+
 def main():
     # db_sess = db_session.create_session()
     # db_sess.commit()
