@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {%block content%}
-<div class="container-fluid">
+<div class="container">
     <form class="d-flex">
         <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1"></option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option selected>Выберите тип сортировки</option>
+            <option value="1">По цене</option>
+            <option value="2">По расстоянию</option>
         </select>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
