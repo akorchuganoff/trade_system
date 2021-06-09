@@ -13,4 +13,6 @@ class Offer(SqlAlchemyBase, SerializerMixin):
     price = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     amount = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     image = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
+
     user = orm.relation('User')
