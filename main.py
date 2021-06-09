@@ -27,8 +27,8 @@ def logout():
     return redirect("/")
 
 
-
 @app.route("/")
+@app.route("/system")
 def system():
     return render_template("system.html")
 
@@ -41,6 +41,24 @@ def account():
 @app.route("/registration", methods=['GET', 'POST'])
 def registration():
     form = RegisterForm()
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template("registration.html", form=form,
+                                   message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template("registration.html", form=form,
+                                   message="Почта уже зарегистрирована в системе")
+        user = User(
+            surname=form.surname.data,
+            name=form.name.data,
+            email=form.email.data,
+            nation=form.nation.data
+        )
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        return redirect("/login")
     return render_template("registration.html", form=form)
 
 
@@ -52,6 +70,8 @@ def login():
 
 def main():
     db_session.global_init("db/trade_system.db")
+    db_sess = db_session.create_session()
+    db_sess.commit()
     app.run(host='127.0.0.1', port=8000, debug=True)
 
 
