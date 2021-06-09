@@ -27,10 +27,14 @@ def logout():
     return redirect("/")
 
 
-
-@app.route("/")
+@app.route("/system")
+@app.route("/", methods=['GET', 'POST'])
 def system():
-    return render_template("system.html")
+    if request.method == 'GET':
+        return render_template("system.html")
+    elif request.method == 'POST':
+        pass
+
 
 
 @app.route("/account")
