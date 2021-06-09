@@ -5,13 +5,13 @@
 
 <div class="container" style="display: flex; justify-content: space-between">
   <div class="left">
-    <img src="https://www.thegrandattrafalgarsquare.com/wp-content/uploads/sites/8/2018/01/AREA_CQ_TRAFALGAR_0958resized-1024x1024.jpg?ch=Width,DPR" alt="" class="photo">
+    <img src="{{ current_user.image }}" alt="" class="photo">
   </div>
   <div class="right" style="align-self: center;">
-    <div class="name"><h3>Name</h3></div>
-    <div class="surname"> <h3>Surname</h3> </div>
-    <div class="login"> <h3>Login</h3> </div>
-    <div class="nationality"><h3>Nationality</h3></div>
+    <div class="name"><h3>{{ current_user.name }}</h3></div>
+    <div class="surname"> <h3>{{ current_user.surname }}</h3> </div>
+    <div class="login"> <h3>{{ current_user.email }}</h3> </div>
+    <div class="nationality"><h3>{{ current_user.nation }}</h3></div>
   </div>
 </div>
 <div style='width: 100%; display: block; text-align: center;'>

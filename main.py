@@ -42,7 +42,7 @@ def system():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("account.html")
+    return render_template("account.html", current_page="account")
 
 
 @app.route("/registration", methods=['GET', 'POST'])
@@ -56,11 +56,18 @@ def registration():
         if db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template("registration.html", form=form,
                                    message="Почта уже зарегистрирована в системе")
+        f = form.image.data
+        if db_sess.query(User).first():
+            n = db_sess.query(User).all()[-1].id
+        else:
+            n = 0
+        f.save(f"static/img/user{str(n + 1)}.png")
         user = User(
             surname=form.surname.data,
             name=form.name.data,
             email=form.email.data,
             nation=form.nation.data,
+            image=f"static/img/user{str(n + 1)}.png",
             money=10000
         )
         user.set_password(form.password.data)
