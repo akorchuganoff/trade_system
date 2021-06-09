@@ -37,10 +37,16 @@ def account():
     return render_template("account.html")
 
 
-@app.route("/registration")
+@app.route("/registration", methods=['GET', 'POST'])
 def registration():
     form = RegisterForm()
     return render_template("registration.html", form=form)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form)
 
 
 def main():
