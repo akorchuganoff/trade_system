@@ -6,8 +6,6 @@ from forms.registration import RegisterForm, LoginForm
 from flask import Flask, render_template, redirect, request, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'DK_secret_key'
@@ -38,7 +36,6 @@ def system():
         return render_template("system.html", n=max(0, len(offers)), offers=offers)
     elif request.method == 'POST':
         pass
-
 
 
 @app.route("/account")
@@ -85,9 +82,15 @@ def login():
                                form=form)
     return render_template("login.html", form=form)
 
-@app.route('/add_offer')
+
+@app.route('/add_offer', methods=['GET', 'POST'])
 def add_offer():
-    form=AddOfferForm()
+    print(request.method)
+    form = AddOfferForm()
+    if form.validate_on_submit():
+        print(1243142)
+        return redirect('/account')
+
     return render_template("add_offer.html", form=form)
 
 def main():

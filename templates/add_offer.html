@@ -2,39 +2,38 @@
 
 {%block content%}
 <div class="container">
-    <form action="">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+<!--        <p>-->
+<!--            {{ form.image.label }}<br>-->
+<!--            {{ form.image(class="form-control", type="file") }}<br>-->
+<!--            {% for error in form.image.errors %}-->
+<!--                <p class="alert alert-danger" role="alert">-->
+<!--                    {{ error }}-->
+<!--                </p>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
         <p>
-        {{ form.image.label }}<br>
-        {{ form.image(class="form-control", type="file") }}<br>
-        {% for error in form.image.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-        <p>
-        {{ form.name.label }}<br>
-        {{ form.name(class="form-control", type="string") }}<br>
-        {% for error in form.name.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control", type="string") }}<br>
+            {% for error in form.name.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
 
         <p>
-        {{ form.description.label }}<br>
-        {{ form.description(class="form-control", type="textarea") }}<br>
-        {% for error in form.description.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
+            {{ form.description.label }}<br>
+            {{ form.description(class="form-control", type="textarea") }}<br>
+            {% for error in form.description.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
 
-        <p >{{ form.submit(type="submit", class="btn btn-outline-secondary") }}</p>
-
-
+        <p>{{ form.submit(type="submit", class="btn btn-outline-secondary") }}</p>
     </form>
 </div>
 {%endblock%}
