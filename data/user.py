@@ -14,6 +14,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     surname = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=False)
+    nation = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     money = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     offer = orm.relation("Offer", back_populates='user')
 
