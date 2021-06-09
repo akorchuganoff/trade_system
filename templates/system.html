@@ -2,7 +2,7 @@
 
 {%block content%}
 <div class="container">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p class="d-flex" style="margin-top: 30px;">
             {{ form.sorting(class="form-control", type="text") }}
@@ -14,7 +14,7 @@
         <section class="">
             <div class="row align-items-center"  style="margin-top: 50px;">
                 <div class="col">
-                    <img src="https://www.thegrandattrafalgarsquare.com/wp-content/uploads/sites/8/2018/01/AREA_CQ_TRAFALGAR_0958resized-1024x1024.jpg?ch=Width,DPR"
+                    <img src="{{ offers[i].image }}"
                          alt="" style="width: 100%; border-radius: 100%;">
                 </div>
                     <div class="col" style="text-align: center">
