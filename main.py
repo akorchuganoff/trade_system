@@ -4,11 +4,11 @@ from data.user import User
 from forms.registration import RegisterForm, LoginForm
 from flask import Flask, render_template, redirect, request, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask_restful import Api, Resource
+
 
 
 app = Flask(__name__)
-api = Api(app)
+
 app.config['SECRET_KEY'] = 'DK_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -25,6 +25,7 @@ def load_user(user_id):
 def logout():
     logout_user()
     return redirect("/")
+
 
 
 @app.route("/")
