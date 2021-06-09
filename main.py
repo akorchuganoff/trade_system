@@ -34,5 +34,10 @@ def account():
     return render_template("account.html")
 
 
-if __name__ == '__main__':
+def main():
+    db_session.global_init("db/trade_system.db")
     app.run(host='127.0.0.1', port=8000, debug=True)
+
+
+if __name__ == '__main__':
+    main()
